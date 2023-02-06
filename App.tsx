@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet,} from 'react-native';
+import SigninScreen from "./src/screens/SigninScreen";
+import theme from './src/styles/theme';
+import {ThemeProvider} from 'styled-components/native';
+import UserLocationScreen from './src/screens/UserLocationScreen';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <ThemeProvider theme={theme}>
+        <UserLocationScreen/>
+      </ThemeProvider>
   );
 }
 
