@@ -7,6 +7,7 @@ import CriarAgendamentoScreen from '../CriarAgendamentoScreen';
 import CriarNotificacaoScreen from '../CriarNotificacaoScreen';
 import LocalizarDoadorScreen from '../LocalizarDoadorScreen';
 import ListarAgendamentoScreen from '../ListarAgendamentosScreen';
+import MeusAgendamentosScreen from '../MeusAgendamentosScreen';
 
 export default function HomeScreen() {
 
@@ -27,6 +28,7 @@ export default function HomeScreen() {
         :(<>
           <Tab.Screen name='Agendar' component={CriarAgendamentoScreen} />
           <Tab.Screen name='Notificações' component={NotificationListScreen} />
+          <Tab.Screen name='MeusAgendamentos' component={MeusAgendamentosScreen}/>
         </>)}
     </Tab.Navigator>
   )
