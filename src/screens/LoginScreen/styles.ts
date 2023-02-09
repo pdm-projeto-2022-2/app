@@ -13,3 +13,17 @@ export const Title = styled.Text`
     text-align: center;
     margin-bottom: 10px;
 `
+export const SecondaryButton = styled.TouchableOpacity`
+    background-color: ${({theme})=> theme.colors.surface};
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid;
+    border-radius: 10px;
+    border-color: ${({theme})=> theme.colors.primary};
+`
+export const SecondaryButtonText = styled.Text`
+    font-weight: 600;
+    color: ${({theme})=> theme.colors.primary};
+`

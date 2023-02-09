@@ -19,5 +19,5 @@ export const ImageContainer = styled.TouchableOpacity`
 
 export const ButtonContainer = styled.View`
     width: 100%;
-    margin-top: 100px;
+    margin: 50px;
 `

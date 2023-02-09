@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Alert, Dimensions, View } from 'react-native'
 import MapView, { MapPressEvent } from 'react-native-maps'
@@ -6,8 +7,12 @@ import { UserMap } from './styles'
 
 export default function UserLocationScreen() {
 
+  const navigation = useNavigation()
+
+
   function handleMapPress(event:MapPressEvent){
     Alert.alert(JSON.stringify(event.nativeEvent.coordinate))
+    navigation.navigate('SigninPhoto')
   }
 
   return (

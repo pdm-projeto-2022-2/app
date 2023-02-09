@@ -2,9 +2,11 @@ import { View, Text, Alert } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Container, StyledInput } from '../../styles/styled.components'
-import { Content, FormRow, Title } from './styles'
+import { Content, FormRow, SecondaryButton, SecondaryButtonText, Title } from './styles'
 import Button from '../../components/Button'
 import { Formik, FormikHelpers } from 'formik'
+import { useNavigation } from '@react-navigation/native'
+
 
 interface LoginFormProps {
     email: string,
@@ -14,9 +16,11 @@ interface LoginFormProps {
 export default function LoginScreen() {
 
     const initialValues: LoginFormProps = {email: '', pass: ''}
+    const navigation = useNavigation()
 
     function onSubmit(values: LoginFormProps, helpers: FormikHelpers<LoginFormProps>){
         Alert.alert(JSON.stringify(values))
+        navigation.navigate('BottomTabbed')
     }
 
   return (
@@ -39,6 +43,11 @@ export default function LoginScreen() {
                     </Content>
                 )}
                 </Formik>
+                <Content>
+                    <SecondaryButton onPress={()=> navigation.navigate('Signin')}>
+                        <SecondaryButtonText>Quero me cadastrar</SecondaryButtonText>
+                    </SecondaryButton>
+                </Content>
             </Container>
         </SafeAreaView>
     </>

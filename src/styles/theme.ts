@@ -19,7 +19,8 @@ export default {
         text:'#969cb2',
         text_dark:'#000',
 
-        background:'#E5E5E5'
+        background:'#E5E5E5',
+        surface: '#FFF'
 
     },
     fonts:{

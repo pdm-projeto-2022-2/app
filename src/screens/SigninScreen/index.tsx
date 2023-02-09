@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {StyledInput, Container} from "../../styles/styled.components";
 import {SafeAreaView} from "react-native-safe-area-context";
 import { Content, FormRow, Title } from './styles';
 import Button from '../../components/Button';
 import { Formik, FormikFormProps, FormikHelpers } from 'formik';
 import { Alert, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {Picker} from '@react-native-picker/picker';
+
 
 interface IForm{
     email: string,
     name: string,
     phone: string,
     pass: string,
+    tipoSangue: string
 }
 
 function SigninScreen() {
+
+    const navigation = useNavigation()
+    const [pickerFocused, setPickerFocused] = useState(false)
+    const [tipoSangue, setTipoSangue] = useState('')
+
+    const bloodtypes = ['O+', 'B+', 'A+', 'AB+','O-', 'B-', 'A-', 'AB-']
+
 
     const formInitialValue:IForm = {
         email: '',
         name: '',
         phone: '',
-        pass: ''
+        pass: '',
+        tipoSangue: ''
     }
 
     function onSubmit(values: IForm, helper:FormikHelpers<IForm>){
         Alert.alert(JSON.stringify(values))
+        navigation.navigate('SigninMap')
     }
 
     return (
@@ -37,7 +50,7 @@ function SigninScreen() {
                                 initialValues={formInitialValue}
                                 onSubmit={onSubmit}
                             >
-                            {({values, handleSubmit, handleChange})=>(
+                            {({values, handleSubmit, handleChange, setFieldValue})=>(
                             <>
                                 <FormRow>
                                     <StyledInput
@@ -68,6 +81,27 @@ function SigninScreen() {
                                         secureTextEntry
                                     />
                                 </FormRow>
+                                <Picker 
+                                    onFocus={() => setPickerFocused(true)}
+                                    onBlur={() => setPickerFocused(false)}
+                                    selectedValue={values.tipoSangue}
+                                    onValueChange={(itemValue, itemIndex) => {
+                                        setFieldValue('tipoSangue', itemValue)
+                                    }}
+                                >
+                                    <Picker.Item
+                                        value=""
+                                        label="Tipo de Sangue"
+                                        enabled={!pickerFocused}
+                                    />
+                                    {bloodtypes.map(type => (
+                                        <Picker.Item
+                                            key={type}
+                                            value={type}
+                                            label={type}
+                                        />
+                                    ))}
+                                </Picker>
                                 <Button text="Avançar" onPress={event => handleSubmit()} />
                             </>
                             )}
