@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 import { StyledInput } from '../../styles/styled.components';
 
 
-export default function CriarLembreteScreen() {
+export default function CriarAgendamentoScreen() {
 
     const [date, setDate] = useState<Date>(new Date())
 

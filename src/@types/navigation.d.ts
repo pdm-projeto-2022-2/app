@@ -7,6 +7,8 @@ export declare global {
         SigninPhoto: undefined;
         Home: undefined;
         CriarLembrete: undefined;
+        LocalizarDoador: undefined;
+        ListarAgendamentos: undefined;
       }
     }
   }
