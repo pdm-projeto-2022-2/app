@@ -31,7 +31,7 @@ function ChangePhotoScreen() {
     }
 
     async function onSubmit(){
-        navigation.navigate('BottomTabbed')
+        navigation.navigate('Home')
     }
     
     return (

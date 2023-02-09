@@ -3,7 +3,7 @@ import React from 'react'
 import NotificationCard from '../../components/NotificationCard'
 import { CardContainer } from './styles'
 
-export default function NotificationScreen() {
+export default function NotificationListScreen() {
 
     const mockup = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 

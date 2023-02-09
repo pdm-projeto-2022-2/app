@@ -1,11 +1,12 @@
 import { View, Text, Alert } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Container, StyledInput } from '../../styles/styled.components'
 import { Content, FormRow, SecondaryButton, SecondaryButtonText, Title } from './styles'
 import Button from '../../components/Button'
 import { Formik, FormikHelpers } from 'formik'
 import { useNavigation } from '@react-navigation/native'
+import AuthContext from '../../context/AuthContext'
 
 
 interface LoginFormProps {
@@ -17,10 +18,16 @@ export default function LoginScreen() {
 
     const initialValues: LoginFormProps = {email: '', pass: ''}
     const navigation = useNavigation()
+    const context = useContext(AuthContext)
 
     function onSubmit(values: LoginFormProps, helpers: FormikHelpers<LoginFormProps>){
         Alert.alert(JSON.stringify(values))
-        navigation.navigate('BottomTabbed')
+        if(values.email === 'funcionario'){
+            context.role = 'funcionario'
+        }else{
+            context.role = 'usuario'
+        }
+        navigation.navigate('Home')
     }
 
   return (

@@ -5,7 +5,7 @@ export declare global {
         Signin: undefined;
         SigninMap: undefined;
         SigninPhoto: undefined;
-        BottomTabbed: undefined;
+        Home: undefined;
         CriarLembrete: undefined;
       }
     }
