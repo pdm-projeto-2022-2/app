@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CriarLembrete from '../CriarLembrete';
+import NotificationScreen from '../NotificationScreen';
 
 export default function BottomTabbed() {
 
@@ -10,7 +11,8 @@ export default function BottomTabbed() {
 
   return (
     <Tab.Navigator>
-        <Tab.Screen name='CriarLembrete' component={CriarLembrete} />
+        <Tab.Screen name='Agendar' component={CriarLembrete} />
+        <Tab.Screen name='Notificações' component={NotificationScreen} />
     </Tab.Navigator>
   )
 }

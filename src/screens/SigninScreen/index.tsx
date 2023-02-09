@@ -36,6 +36,7 @@ function SigninScreen() {
 
     function onSubmit(values: IForm, helper:FormikHelpers<IForm>){
         Alert.alert(JSON.stringify(values))
+        helper.resetForm()
         navigation.navigate('SigninMap')
     }
 
