@@ -45,10 +45,24 @@ function ChangePhotoScreen() {
             bloodType: registerContext.tipoSangue,
             location: registerContext.localizacao,
             password: registerContext.senha,
-            image: ''
+            image: image
         }
         try{
-            await registrarDoador(doador)
+            let formdata = new FormData();
+            formdata.append('name', doador.name)
+            formdata.append('birthDate', '2000-12-12') //FIXME: DATA DE NASC NA TELA
+            formdata.append('email', doador.email)
+            formdata.append('sex', doador.sex)
+            formdata.append('phone', doador.phone)
+            formdata.append('bloodType', doador.bloodType)
+            formdata.append('location', doador.location)
+            formdata.append('password', doador.password)
+            formdata.append('image',  {
+                name: `image-${doador.name}.jpg`,
+                type: 'image/jpg',
+                uri: image,
+            } as any)
+            await registrarDoador(formdata)
             Alert.alert("Registrado", JSON.stringify(doador))
             navigation.navigate('Login')
         }catch(err){
