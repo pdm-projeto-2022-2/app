@@ -1,19 +1,34 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Dimensions, View } from 'react-native'
 import MapView, { Callout, MapPressEvent, Marker } from 'react-native-maps'
 import Button from '../../components/Button'
 import { PickerView, UserMap } from './styles'
 import {Picker} from '@react-native-picker/picker';
+import { Doador } from '../../api/types'
+import { listarDoadorBySangue as listarDoadoresBySangue } from '../../api/doador'
 
 export default function LocalizarDoadorScreen() {
 
-const bloodtypes = ['O+', 'B+', 'A+', 'AB+','O-', 'B-', 'A-', 'AB-']
+const bloodtypes = ['O_POSITIVE', 'B_POSITIVE', 'A_POSITIVE', 'AB_POSITIVE','O_NEGATIVE', 'B_NEGATIVE', 'A_NEGATIVE', 'AB_NEGATIVE']
 
 
   const navigation = useNavigation()
   const [pickerFocused, setPickerFocused] = useState(false)
   const [sangueSelecionado, setSangueSelecionado] = useState('')
+  const [doadores, setDoadores] = useState<Doador[]>([])
+
+  async function loadDoadores(sangueSelecionado: string){
+    if(sangueSelecionado !== ''){
+      const data = await listarDoadoresBySangue(sangueSelecionado)
+      setDoadores(data)
+    }
+  }
+
+  useEffect(() => {
+    loadDoadores(sangueSelecionado)
+  }, [sangueSelecionado])
+  
 
 
   return (
@@ -26,11 +41,14 @@ const bloodtypes = ['O+', 'B+', 'A+', 'AB+','O-', 'B-', 'A-', 'AB-']
             longitudeDelta: 0.008
           }}
         >
-            <Marker coordinate={{latitude:-6.88878652704693, longitude: -38.559687625841406}}
-              title='Nome do Doador'
-              description='Email - Telefone'
+          {doadores.map( item => item.location?
+            <Marker coordinate={{latitude: Number(item.location.split(" ")[0]), longitude: Number(item.location.split(" ")[1])}}
+              title={item.name}
+              description={`${item.email} - ${item.phone}`}
             >
             </Marker>
+            :null
+          )}
         </UserMap>
         <PickerView>
           <Picker 
@@ -47,7 +65,7 @@ const bloodtypes = ['O+', 'B+', 'A+', 'AB+','O-', 'B-', 'A-', 'AB-']
                   enabled={!pickerFocused}
               />
               <Picker.Item
-                    value='Todos'
+                    value='ALL'
                     label='Todos'
                 />
               {bloodtypes.map(type => (

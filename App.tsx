@@ -11,6 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import AuthContext from './src/context/AuthContext';
+import UserRegisterContext from './src/context/UserRegisterContext';
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
   return (
       <ThemeProvider theme={theme}>
         <AuthContext.Provider value={{role: undefined}} >
+          <UserRegisterContext.Provider value={{}}>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
               <Stack.Screen name='Login' component={LoginScreen} />
@@ -28,6 +30,7 @@ export default function App() {
               <Stack.Screen name='Home' component={HomeScreen} />
             </Stack.Navigator>
           </NavigationContainer>
+          </UserRegisterContext.Provider>
         </AuthContext.Provider>
       </ThemeProvider>
   );

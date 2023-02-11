@@ -9,7 +9,7 @@ export const Card = styled.View`
 `
 
 export const Title = styled.Text`
-    font-weight: 600;
+    font-weight: 900;
 `
 
 export const Info = styled.Text`

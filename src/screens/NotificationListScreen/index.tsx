@@ -1,19 +1,31 @@
 import { View, Text, FlatList } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NotificationCard from '../../components/NotificationCard'
 import { CardContainer } from './styles'
+import { Notification } from '../../api/types'
+import { listarNotificacoes } from '../../api/notificacao'
 
 export default function NotificationListScreen() {
 
-    const mockup = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    const [notifications, setNotifications] = useState<Notification[]>([])
+
+    async function loadNotifications(){
+        const data = await listarNotificacoes('O_POSITIVE') //FIXME: context bloodType
+        setNotifications(data)
+    }
+
+    useEffect(() => {
+      loadNotifications()
+    }, [])
+    
 
   return (
     <>
         <CardContainer>
             <FlatList
-                data={mockup}
-                renderItem={item => (
-                    <NotificationCard/>
+                data={notifications}
+                renderItem={({item}) => (
+                    <NotificationCard title={item.title} description={item.description}/>
                 )}
             />
         </CardContainer>

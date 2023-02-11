@@ -1,17 +1,20 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { Alert, Dimensions, View } from 'react-native'
 import MapView, { MapPressEvent } from 'react-native-maps'
 import Button from '../../components/Button'
+import UserRegisterContext from '../../context/UserRegisterContext'
 import { UserMap } from './styles'
 
 export default function UserLocationScreen() {
 
   const navigation = useNavigation()
+  const registerContext = useContext(UserRegisterContext)
 
 
   function handleMapPress(event:MapPressEvent){
-    Alert.alert(JSON.stringify(event.nativeEvent.coordinate))
+    Alert.alert("Enviado",JSON.stringify(event.nativeEvent.coordinate))
+    registerContext.localizacao = event.nativeEvent.coordinate.latitude +" "+event.nativeEvent.coordinate.longitude
     navigation.navigate('SigninPhoto')
   }
 

@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useContext, useState } from 'react';
 import {Container} from "../../styles/styled.components";
 import {SafeAreaView} from "react-native-safe-area-context";
 import { ButtonContainer, Content, ImageContainer, Title } from './styles';
@@ -6,6 +6,10 @@ import Button from '../../components/Button';
 import * as ImagePicker from 'expo-image-picker';
 import ImageViewer from '../../components/ImageViewer';
 import { useNavigation } from '@react-navigation/native';
+import UserRegisterContext from '../../context/UserRegisterContext';
+import { registrarDoador } from '../../api/doador';
+import { Alert } from 'react-native';
+import { Doador } from '../../api/types';
 
 interface IForm{
     email: string,
@@ -18,6 +22,7 @@ function ChangePhotoScreen() {
 
     const [image, setImage] = useState<string>()
     const navigation = useNavigation();
+    const registerContext = useContext(UserRegisterContext)
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -31,7 +36,24 @@ function ChangePhotoScreen() {
     }
 
     async function onSubmit(){
-        navigation.navigate('Home')
+        const doador: Doador = {
+            name: registerContext.nome,
+            birthDate: new Date(),
+            email: registerContext.email,
+            sex: registerContext.sexo,
+            phone: registerContext.tel,
+            bloodType: registerContext.tipoSangue,
+            location: registerContext.localizacao,
+            password: registerContext.senha,
+            image: ''
+        }
+        try{
+            await registrarDoador(doador)
+            Alert.alert("Registrado", JSON.stringify(doador))
+            navigation.navigate('Login')
+        }catch(err){
+            console.dir(err)
+        }
     }
     
     return (

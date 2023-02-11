@@ -5,6 +5,8 @@ import {Picker} from '@react-native-picker/picker';
 import { Content, FormRow } from './styles';
 import { Formik, FormikHelpers } from 'formik';
 import Button from '../../components/Button';
+import { Notification } from '../../api/types';
+import { criarNotificacao } from '../../api/notificacao';
 
 interface CriarNotificacaoForm{
   tipoSangue: string
@@ -12,7 +14,7 @@ interface CriarNotificacaoForm{
   desc: string
 }
 
-const bloodtypes = ['O+', 'B+', 'A+', 'AB+','O-', 'B-', 'A-', 'AB-']
+const bloodtypes = ['O_POSITIVE', 'B_POSITIVE', 'A_POSITIVE', 'AB_POSITIVE','O_NEGATIVE', 'B_NEGATIVE', 'A_NEGATIVE', 'AB_NEGATIVE']
 
 export default function CriarNotificacaoScreen() {
 
@@ -26,6 +28,12 @@ export default function CriarNotificacaoScreen() {
   
   async function onSubmit(values: CriarNotificacaoForm, helpers: FormikHelpers<CriarNotificacaoForm>) {
     Alert.alert(JSON.stringify(values))
+    const notification: Notification = {
+      bloodType: values.tipoSangue,
+      title: values.titulo,
+      description: values.desc
+    }
+    criarNotificacao(notification)
     helpers.resetForm()
   }
 
@@ -52,7 +60,7 @@ export default function CriarNotificacaoScreen() {
                 enabled={!pickerFocused}
             />
             <Picker.Item
-                  value='Todos'
+                  value='ALL'
                   label='Todos'
               />
             {bloodtypes.map(type => (
