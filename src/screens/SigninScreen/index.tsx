@@ -25,7 +25,13 @@ function SigninScreen() {
     const [pickerFocused, setPickerFocused] = useState(false)
     const registerContext = useContext(UserRegisterContext)
 
-    const bloodtypes = ['O_POSITIVE', 'B_POSITIVE', 'A_POSITIVE', 'AB_POSITIVE','O_NEGATIVE', 'B_NEGATIVE', 'A_NEGATIVE', 'AB_NEGATIVE']
+    const bloodtypes = [{value: 'O_POSITIVE', label: 'O+'}, 
+    {value: 'B_POSITIVE', label: 'B+'}, 
+    {value: 'A_POSITIVE', label: 'A+'}, {value: 'AB_POSITIVE', label: 'AB+'},
+    {value: 'O_NEGATIVE', label: 'O-'},
+    {value:'B_NEGATIVE', label: 'B-'},
+    {value: 'A_NEGATIVE', label: 'A-'},
+    {value: 'AB_NEGATIVE', label: 'AB-'}]
 
     const formInitialValue:IForm = {
         email: '',
@@ -105,9 +111,9 @@ function SigninScreen() {
                                         />
                                         {bloodtypes.map(type => (
                                             <Picker.Item
-                                                key={type}
-                                                value={type}
-                                                label={type}
+                                                key={type.value}
+                                                value={type.value}
+                                                label={type.label}
                                             />
                                         ))}
                                     </Picker>

@@ -20,21 +20,32 @@ export default function HomeScreen() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerTitle: (props)=> <ProfileHeader/>,
-        headerStyle: {height: 125}
+        headerTitle: (props) => <ProfileHeader/>,
+        headerStyle: {height: 125},
+        tabBarIcon: () => <></>,
+        tabBarLabelStyle: {fontSize: 15}
       }}
     >
         {role === 'funcionario'?
         (<>
-          <Tab.Screen name='CriarNotificacao' component={CriarNotificacaoScreen} />
-          <Tab.Screen name='LocalizarDoador' component={LocalizarDoadorScreen} />
-          <Tab.Screen name='ListarAgendamentos' component={ListarAgendamentoScreen}/>
+          <Tab.Screen 
+            name='CriarNotificacao' component={CriarNotificacaoScreen}
+            options={{tabBarLabel: "Notificação"}} 
+          />
+          <Tab.Screen name='LocalizarDoador' component={LocalizarDoadorScreen} 
+            options={{tabBarLabel: "Doadores"}}
+          />
+          <Tab.Screen name='ListarAgendamentos' component={ListarAgendamentoScreen}
+            options={{tabBarLabel: "Agendamento"}}
+          />
 
         </>)
         :(<>
           <Tab.Screen name='Agendar' component={CriarAgendamentoScreen} />
           <Tab.Screen name='Notificações' component={NotificationListScreen} />
-          <Tab.Screen name='MeusAgendamentos' component={MeusAgendamentosScreen} options={{unmountOnBlur: true}}/>
+          <Tab.Screen name='MeusAgendamentos' component={MeusAgendamentosScreen} options={{
+            tabBarLabel: "Agendamentos",
+            unmountOnBlur: true}}/>
         </>)}
     </Tab.Navigator>
   )
