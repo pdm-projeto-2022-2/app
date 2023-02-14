@@ -8,6 +8,7 @@ import CriarNotificacaoScreen from '../CriarNotificacaoScreen';
 import LocalizarDoadorScreen from '../LocalizarDoadorScreen';
 import ListarAgendamentoScreen from '../ListarAgendamentosScreen';
 import MeusAgendamentosScreen from '../MeusAgendamentosScreen';
+import ProfileHeader from '../../components/ProfileHeader';
 
 export default function HomeScreen() {
 
@@ -17,7 +18,12 @@ export default function HomeScreen() {
 
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerTitle: (props)=> <ProfileHeader/>,
+        headerStyle: {height: 125}
+      }}
+    >
         {role === 'funcionario'?
         (<>
           <Tab.Screen name='CriarNotificacao' component={CriarNotificacaoScreen} />
@@ -28,7 +34,7 @@ export default function HomeScreen() {
         :(<>
           <Tab.Screen name='Agendar' component={CriarAgendamentoScreen} />
           <Tab.Screen name='Notificações' component={NotificationListScreen} />
-          <Tab.Screen name='MeusAgendamentos' component={MeusAgendamentosScreen}/>
+          <Tab.Screen name='MeusAgendamentos' component={MeusAgendamentosScreen} options={{unmountOnBlur: true}}/>
         </>)}
     </Tab.Navigator>
   )

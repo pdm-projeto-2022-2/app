@@ -1,16 +1,18 @@
 import { View, Text, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { Content, Title } from './styles';
 import Button from '../../components/Button';
 import { StyledInput } from '../../styles/styled.components';
 import { criarAgendamento } from '../../api/agendamento';
+import AuthContext from '../../context/AuthContext';
 
 
 export default function CriarAgendamentoScreen() {
 
     const [date, setDate] = useState<Date>(new Date())
+    const {details} = useContext(AuthContext)
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -31,8 +33,8 @@ export default function CriarAgendamentoScreen() {
       };
 
       async function onSubmit() {
-        const data = await criarAgendamento({date: date})
-        Alert.alert('Criado', JSON.stringify(data))
+        const data = await criarAgendamento({date: date}, details.DETAILS.id)
+        Alert.alert('Criado', 'Agendamento Criado com Sucesso')
       }
 
   return (

@@ -8,7 +8,6 @@ export const StyledInput = styled.TextInput`
 `
 
 export const Container = styled.View`
-    height: 100%;
     display: flex;
     
 `

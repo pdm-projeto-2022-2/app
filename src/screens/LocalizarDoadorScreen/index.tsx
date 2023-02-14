@@ -42,7 +42,9 @@ const bloodtypes = ['O_POSITIVE', 'B_POSITIVE', 'A_POSITIVE', 'AB_POSITIVE','O_N
           }}
         >
           {doadores.map( item => item.location?
-            <Marker coordinate={{latitude: Number(item.location.split(" ")[0]), longitude: Number(item.location.split(" ")[1])}}
+            <Marker 
+              key={item.id}
+              coordinate={{latitude: Number(item.location.split(" ")[0]), longitude: Number(item.location.split(" ")[1])}}
               title={item.name}
               description={`${item.email} - ${item.phone}`}
             >

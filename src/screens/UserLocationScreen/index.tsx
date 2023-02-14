@@ -13,7 +13,6 @@ export default function UserLocationScreen() {
 
 
   function handleMapPress(event:MapPressEvent){
-    Alert.alert("Enviado",JSON.stringify(event.nativeEvent.coordinate))
     registerContext.localizacao = event.nativeEvent.coordinate.latitude +" "+event.nativeEvent.coordinate.longitude
     navigation.navigate('SigninPhoto')
   }

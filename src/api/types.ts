@@ -24,3 +24,20 @@ export interface Notification{
     title: string,
     description: string
 }
+
+export interface UserTokenDetail{
+    ROLE: "ROLE_USER" | "ROLE_EMPLOYEE",
+    DETAILS: Doador | Employee,
+    sub: string,
+    iat: Number,
+    exp: Number
+}
+
+export interface Employee{
+    id?: Number,
+    email: string,
+    password?: string,
+    name: string,
+    registration: string,
+    image: string
+}

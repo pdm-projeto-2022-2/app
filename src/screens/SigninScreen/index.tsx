@@ -37,7 +37,6 @@ function SigninScreen() {
     }
 
     function onSubmit(values: IForm, helper:FormikHelpers<IForm>){
-        Alert.alert("Adicionado",JSON.stringify(values))
         registerContext.email = values.email
         registerContext.nome = values.name
         registerContext.tel = values.phone

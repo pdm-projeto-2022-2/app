@@ -63,7 +63,7 @@ function ChangePhotoScreen() {
                 uri: image,
             } as any)
             await registrarDoador(formdata)
-            Alert.alert("Registrado", JSON.stringify(doador))
+            Alert.alert("Registrado", "Novo usuario registrado")
             navigation.navigate('Login')
         }catch(err){
             console.dir(err)

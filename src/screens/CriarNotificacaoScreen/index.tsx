@@ -27,7 +27,6 @@ export default function CriarNotificacaoScreen() {
   }
   
   async function onSubmit(values: CriarNotificacaoForm, helpers: FormikHelpers<CriarNotificacaoForm>) {
-    Alert.alert(JSON.stringify(values))
     const notification: Notification = {
       bloodType: values.tipoSangue,
       title: values.titulo,

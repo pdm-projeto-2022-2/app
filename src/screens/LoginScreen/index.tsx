@@ -7,6 +7,10 @@ import Button from '../../components/Button'
 import { Formik, FormikHelpers } from 'formik'
 import { useNavigation } from '@react-navigation/native'
 import AuthContext from '../../context/AuthContext'
+import { login } from '../../api/auth'
+import jwtDecode from 'jwt-decode'
+import { UserTokenDetail } from '../../api/types'
+import client from '../../api/client'
 
 
 interface LoginFormProps {
@@ -20,13 +24,19 @@ export default function LoginScreen() {
     const navigation = useNavigation()
     const context = useContext(AuthContext)
 
-    function onSubmit(values: LoginFormProps, helpers: FormikHelpers<LoginFormProps>){
-        Alert.alert(JSON.stringify(values))
-        if(values.email === 'funcionario'){
+    async function onSubmit(values: LoginFormProps, helpers: FormikHelpers<LoginFormProps>){
+        const data = await login(values.email, values.pass)
+        const tokenDetail: UserTokenDetail = jwtDecode(data.token)
+        if(tokenDetail.ROLE === 'ROLE_EMPLOYEE'){
             context.role = 'funcionario'
         }else{
             context.role = 'usuario'
         }
+        context.details = tokenDetail
+        client.interceptors.request.use((config)=>{
+            config.headers.Authorization = `Bearer ${data.token}`
+            return config;
+        })
         navigation.navigate('Home')
     }
 
