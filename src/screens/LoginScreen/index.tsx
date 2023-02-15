@@ -11,6 +11,7 @@ import { login } from '../../api/auth'
 import jwtDecode from 'jwt-decode'
 import { UserTokenDetail } from '../../api/types'
 import client from '../../api/client'
+import { isAxiosError } from 'axios'
 
 
 interface LoginFormProps {
@@ -25,19 +26,25 @@ export default function LoginScreen() {
     const context = useContext(AuthContext)
 
     async function onSubmit(values: LoginFormProps, helpers: FormikHelpers<LoginFormProps>){
-        const data = await login(values.email, values.pass)
-        const tokenDetail: UserTokenDetail = jwtDecode(data.token)
-        if(tokenDetail.ROLE === 'ROLE_EMPLOYEE'){
-            context.role = 'funcionario'
-        }else{
-            context.role = 'usuario'
+        try{
+            const data = await login(values.email, values.pass)
+            const tokenDetail: UserTokenDetail = jwtDecode(data.token)
+            if(tokenDetail.ROLE === 'ROLE_EMPLOYEE'){
+                context.role = 'funcionario'
+            }else{
+                context.role = 'usuario'
+            }
+            context.details = tokenDetail
+            client.interceptors.request.use((config)=>{
+                config.headers.Authorization = `Bearer ${data.token}`
+                return config;
+            })
+            navigation.navigate('Home')
+        }catch(err){
+            if(isAxiosError(err) && err.response.status == 403){
+                Alert.alert("Email ou Senha Inválidos")
+            }
         }
-        context.details = tokenDetail
-        client.interceptors.request.use((config)=>{
-            config.headers.Authorization = `Bearer ${data.token}`
-            return config;
-        })
-        navigation.navigate('Home')
     }
 
   return (

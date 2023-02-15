@@ -19,7 +19,7 @@ export default function App() {
   
   return (
       <ThemeProvider theme={theme}>
-        <AuthContext.Provider value={{role: undefined}} >
+        <AuthContext.Provider value={{role: undefined, details: undefined}} >
           <UserRegisterContext.Provider value={{}}>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>

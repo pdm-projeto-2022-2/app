@@ -5,7 +5,7 @@ import ImageViewer from "../ImageViewer";
 export const Header = styled.View`
     display: flex;
     flex-direction: row;
-    width: ${Dimensions.get("window").width};
+    width: ${Dimensions.get("window").width}px;
 `
 
 export const ImageContainer = styled.View`
@@ -19,4 +19,8 @@ export const ProfileInfo = styled.View`
     flex-direction: row;
     width: 75%;
     justify-content: space-between;
+`
+
+export const ProfileName = styled.Text`
+    font-weight: 800;
 `
